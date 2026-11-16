@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <!-- Main Screen Content Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Top Action Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorSurface"
+            app:elevation="2dp"
+            app:title="Today"
+            app:titleTextColor="@color/textPrimary"
+            app:navigationIcon="@drawable/ic_menu"/>
+
+        <!-- Top Header Controls Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp">
+
+            <!-- Search Bar Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSearch"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="@color/cardBackground"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/dividerColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="14dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@android:drawable/ic_menu_search"
+                        app:tint="@color/textSecondary"
+                        android:contentDescription="Search"/>
+
+                    <EditText
+                        android:id="@+id/edtSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Search notes, subjects or categories..."
+                        android:background="@null"
+                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary"
+                        android:textColorHint="@color/textSecondary"
+                        android:paddingStart="10dp"
+                        android:singleLine="true"
+                        android:inputType="text"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Dynamic Filter Bar & Sorting Row -->
+            <HorizontalScrollView
+                android:id="@+id/scrollFilters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="10dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupFilters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFilterActive"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Active"
+                        android:checked="true"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFilterCompleted"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Completed"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFilterAll"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSortDue"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort: Due Date"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSortPriority"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort: Priority"/>
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <!-- Today Summary Cards Container -->
+            <LinearLayout
+                android:id="@+id/layoutTodaySummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#FEE2E2"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/txtCountOverdue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#DC2626"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Overdue"
+                            android:textSize="11sp"
+                            android:textColor="#991B1B"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#E0F2FE"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/txtCountAcademic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#0284C7"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Exams &amp; Deadlines"
+                            android:textSize="11sp"
+                            android:textColor="#075985"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#D1FAE5"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/txtCountPending"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#059669"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pending Tasks"
+                            android:textSize="11sp"
+                            android:textColor="#065F46"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Main Body Frame Layout for Views & Lists -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="16dp">
+
+            <!-- RecyclerView for Notes -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerNotes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="88dp"/>
+
+            <!-- Empty State Layout -->
+            <LinearLayout
+                android:id="@+id/layoutEmptyState"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_all_notes"
+                    app:tint="@color/dividerColor"
+                    android:contentDescription="Empty"/>
+
+                <TextView
+                    android:id="@+id/txtEmptyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="No Notes Found"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textPrimary"/>
+
+                <TextView
+                    android:id="@+id/txtEmptySub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Tap (+) to create a new note or reminder"
+                    android:textSize="14sp"
+                    android:textColor="@color/textSecondary"/>
+            </LinearLayout>
+
+            <!-- Calendar View Container -->
+            <ScrollView
+                android:id="@+id/containerCalendarView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="88dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="@color/cardBackground"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/dividerColor">
+
+                        <CalendarView
+                            android:id="@+id/calendarView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/txtCalendarDateHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Notes for Selected Date"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textPrimary"
+                        android:layout_marginBottom="10dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerCalendarNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <!-- Settings Screen Container -->
+            <ScrollView
+                android:id="@+id/containerSettingsView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="88dp">
+
+                    <!-- Theme Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="1dp"
+                        app:cardBackgroundColor="@color/cardBackground"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/dividerColor">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="App Theme"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/textPrimary"
+                                android:layout_marginBottom="10dp"/>
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupTheme"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:id="@+id/radioLight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Light Mode"/>
+
+                                <RadioButton
+                                    android:id="@+id/radioDark"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dark Mode"/>
+
+                                <RadioButton
+                                    android:id="@+id/radioSystem"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="System Default"/>
+                            </RadioGroup>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Time Format Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="1dp"
+                        app:cardBackgroundColor="@color/cardBackground"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/dividerColor">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Time Format"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/textPrimary"
+                                android:layout_marginBottom="10dp"/>
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupTimeFormat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:id="@+id/radio12h"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="12-Hour Format (e.g. 02:30 PM)"/>
+
+                                <RadioButton
+                                    android:id="@+id/radio24h"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="24-Hour Format (e.g. 14:30)"/>
+                            </RadioGroup>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Audio Settings Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="1dp"
+                        app:cardBackgroundColor="@color/cardBackground"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/dividerColor">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Reminder Notification Sound"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/textPrimary"
+                                android:layout_marginBottom="10dp"/>
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupAudio"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp">
+
+                                <RadioButton
+                                    android:id="@+id/radioAudioDefault"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Default System Ringtone"/>
+
+                                <RadioButton
+                                    android:id="@+id/radioAudioAlarm"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="System Alarm Sound"/>
+
+                                <RadioButton
+                                    android:id="@+id/radioAudioCustom"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Custom Ringtone / Audio File"/>
+                            </RadioGroup>
+
+                            <Button
+                                android:id="@+id/btnSelectCustomAudio"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Browse Custom Ringtone"
+                                android:visibility="gone"
+                                android:layout_marginBottom="12dp"/>
+
+                            <!-- Sound Preview Button -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="12dp">
+
+                                <Button
+                                    android:id="@+id/btnPreviewSound"
+                                    style="@style/Widget.Material3.Button.OutlinedButton"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="6dp"
+                                    android:text="Preview Sound"/>
+
+                                <Button
+                                    android:id="@+id/btnTestNotification"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="6dp"
+                                    android:text="Test Notification"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Quick Add Floating Action Button -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabAddNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:contentDescription="Add new note"
+                android:src="@android:drawable/ic_input_add"
+                app:backgroundTint="@color/colorPrimary"
+                app:tint="@color/white"
+                app:elevation="6dp"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!-- Navigation Drawer View -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorSurface"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

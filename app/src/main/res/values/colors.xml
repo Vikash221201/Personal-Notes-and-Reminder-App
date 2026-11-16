@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6366F1</color>
+    <color name="colorPrimaryVariant">#4F46E5</color>
+    <color name="colorSecondary">#0EA5E9</color>
+    <color name="colorBackground">#F8FAFC</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="textPrimary">#0F172A</color>
+    <color name="textSecondary">#64748B</color>
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="dividerColor">#E2E8F0</color>
+    <color name="pinColor">#F59E0B</color>
+    <color name="chipBackground">#EEF2FF</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Priority Colors -->
+    <color name="priorityHigh">#EF4444</color>
+    <color name="priorityHighBg">#FEE2E2</color>
+    <color name="priorityMedium">#F59E0B</color>
+    <color name="priorityMediumBg">#FEF3C7</color>
+    <color name="priorityLow">#10B981</color>
+    <color name="priorityLowBg">#D1FAE5</color>
+
+    <!-- Status Colors -->
+    <color name="statusOverdue">#DC2626</color>
+    <color name="statusApproaching">#D97706</color>
+    <color name="statusCompleted">#059669</color>
+    <color name="statusActive">#2563EB</color>
+
+    <!-- Category Accent Colors -->
+    <color name="catPersonal">#8B5CF6</color>
+    <color name="catStudy">#0EA5E9</color>
+    <color name="catWork">#F59E0B</color>
+    <color name="catShopping">#EC4899</color>
+</resources>

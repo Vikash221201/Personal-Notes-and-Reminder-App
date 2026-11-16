@@ -1,0 +1,27 @@
+
+# Gradle
+.gradle/
+**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# Android Studio
+.idea/
+*.iml
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# APK and AAB
+*.apk
+*.aab
+
+# Signing keys and credentials
+*.jks
+*.keystore
+key.properties
+
+# Environment and secrets
+.env
+.env.*

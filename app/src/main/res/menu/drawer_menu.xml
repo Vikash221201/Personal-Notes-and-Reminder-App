@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_today"
+            android:icon="@drawable/ic_today"
+            android:title="Today" />
+        <item
+            android:id="@+id/nav_scheduled"
+            android:icon="@drawable/ic_scheduled"
+            android:title="Scheduled" />
+        <item
+            android:id="@+id/nav_all"
+            android:icon="@drawable/ic_all_notes"
+            android:title="All Notes" />
+        <item
+            android:id="@+id/nav_flagged"
+            android:icon="@drawable/ic_flagged"
+            android:title="Flagged" />
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_calendar"
+            android:title="Calendar View" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+    </group>
+
+    <item android:title="Categories">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_cat_personal"
+                    android:icon="@drawable/ic_personal"
+                    android:title="Personal Notes" />
+                <item
+                    android:id="@+id/nav_cat_study"
+                    android:icon="@drawable/ic_study"
+                    android:title="Study Notes &amp; Docs" />
+                <item
+                    android:id="@+id/nav_cat_work"
+                    android:icon="@drawable/ic_work"
+                    android:title="Work Notes" />
+                <item
+                    android:id="@+id/nav_cat_shopping"
+                    android:icon="@drawable/ic_shopping"
+                    android:title="Shopping Lists" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
